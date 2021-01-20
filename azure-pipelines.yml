@@ -86,7 +86,7 @@ steps:
     contents: '**' 
     
 # Build and pack the library
-- script: dotnet pack src\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle.csproj -c $(buildConfiguration) -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion)
+- script: dotnet build src\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle.csproj -c $(buildConfiguration) -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion)
   displayName: 'AzureFunctions.Extensions.Swashbuckle - packing'
 
 # Delete Files
