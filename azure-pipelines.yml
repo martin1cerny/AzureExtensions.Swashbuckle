@@ -85,9 +85,9 @@ steps:
     sourceFolder: '$(Build.BinariesDirectory)'
     contents: '**' 
     
-## Build and pack the library
-#- script: dotnet pack src\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle.csproj -c $(buildConfiguration) -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion)
-#  displayName: 'AzureFunctions.Extensions.Swashbuckle - packing'
+# Build and pack the library
+- script: dotnet pack src\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle\AzureFunctions.Extensions.Swashbuckle.csproj -c $(buildConfiguration) -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion)
+  displayName: 'AzureFunctions.Extensions.Swashbuckle - packing'
 
 # Delete Files
 # Delete files or folders. (The minimatch patterns will only match file paths, not folder paths)
