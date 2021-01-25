@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AzureFunctions.Extensions.Swashbuckle.Attribute;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -13,26 +14,29 @@ namespace AzureFunctions.Extensions.Swashbuckle.SwashBuckle.Filters
                 operation.Parameters = new List<OpenApiParameter>();
 
             foreach (var customAttribute in context.MethodInfo.GetCustomAttributes(typeof(RequestHttpHeaderAttribute),
-                false))
+                false).OfType<RequestHttpHeaderAttribute>())
             {
                 operation.Parameters.Add(new OpenApiParameter
                 {
-                    Name = (customAttribute as RequestHttpHeaderAttribute).HeaderName,
+                    Name = customAttribute.HeaderName,
                     In = ParameterLocation.Header,
                     Schema = new OpenApiSchema {Type = "string"},
-                    Required = (customAttribute as RequestHttpHeaderAttribute).IsRequired
+                    Required = customAttribute.IsRequired
                 });
             }
 
+            if (context.MethodInfo.DeclaringType == null)
+                return;
+
             foreach (var customAttribute in context.MethodInfo.DeclaringType.GetCustomAttributes(
-                typeof(RequestHttpHeaderAttribute), false))
+                typeof(RequestHttpHeaderAttribute), false).OfType<RequestHttpHeaderAttribute>())
             {
                 operation.Parameters.Add(new OpenApiParameter
                 {
-                    Name = (customAttribute as RequestHttpHeaderAttribute).HeaderName,
+                    Name = customAttribute.HeaderName,
                     In = ParameterLocation.Header,
                     Schema = new OpenApiSchema {Type = "string"},
-                    Required = (customAttribute as RequestHttpHeaderAttribute).IsRequired
+                    Required = customAttribute.IsRequired
                 });
             }
         }
